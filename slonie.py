@@ -52,9 +52,16 @@ for i in range(1, c + 1):
         suma_c[i] += elephants[e]
         elephants_c.append(elephants[e])
     min_c[i] = min(elephants_c)
+min_all = min(min_c)
 print(suma_c)
 print(min_c)
 
 # Obliczenie wyniku
-
-
+w = 0
+metoda1 = {}
+metoda2 = {}
+for i in range(1, c + 1):
+    metoda1[i] = suma_c[i] + ((len(cycles[i]) - 2) * min_c[i])
+    metoda2[i] = suma_c[i] + min_c[i] + ((len(cycles[i]) + 1) * min_all)
+    w += min(metoda1[i], metoda2[i])
+print(w)
