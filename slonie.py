@@ -20,12 +20,13 @@ start_list0 = format_list_numeration(start_list)
 end_list0 = format_list_numeration(end_list)
 
 elephants = elephants_mass(mass_list)
+print(elephants)
 
 permutation = {}
 check_list = []
 for i in range(n):
-    permutation[end_list0[i]] = start_list0[i]
-    check_list.append(False)
+    permutation[end_list0[i]] = start_list0[i] # Konstrukcja permutacji
+    check_list.append(False) # Rozkład na cykle proste
 cycles = {}
 c = 0
 for i in range(n):
@@ -37,4 +38,23 @@ for i in range(n):
             check_list[x] = True
             x = permutation[x]
             cycles[c].append(x + 1)
+print(cycles)
+
+# Wyznaczenie parametrów cykli
+min_all = int
+suma_c = {}
+min_c = {}
+for i in range(1, c + 1):
+    suma_c[i] = 0
+    min_c[i] = 0
+    elephants_c = []
+    for e in cycles[i]:
+        suma_c[i] += elephants[e]
+        elephants_c.append(elephants[e])
+    min_c[i] = min(elephants_c)
+print(suma_c)
+print(min_c)
+
+# Obliczenie wyniku
+
 
