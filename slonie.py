@@ -1,32 +1,26 @@
-n = 6
-mass_list = [2400, 2000, 1200, 2400, 1600, 4000]
-start_list = [1, 4, 5, 3, 6, 2]
-end_list =   [5, 3, 2, 4, 6, 1]
+n = 11
+mass_list = [4735, 5525, 4720, 3648, 3280, 3726, 4684, 5959, 3797, 3181, 3585]
+start_list = [4, 11, 6, 5, 2, 3, 10, 7, 9, 8, 1]
+end_list =   [11, 8, 6, 1, 5, 4, 9, 2, 3, 10, 7]
 
-def elephants_mass(list):
-    elephants = {}
-    for nr, mass in enumerate(list):
-        elephants[nr + 1] = mass
-    return elephants
+def assign_elephant(list):
+    return {nr : mass for nr, mass in enumerate(list, 1)}
 
-def format_list_numeration(list):
-    list0 = []
-    for nr in list:
-        nr -= 1
-        list0.append(nr)
-    return list0
+def format_list(list):
+    return [nr - 1 for nr in list]
 
-start_list0 = format_list_numeration(start_list)
-end_list0 = format_list_numeration(end_list)
-
-elephants = elephants_mass(mass_list)
-print(elephants)
-
+start_list_0 = format_list(start_list)
+end_list_0 = format_list(end_list)
+elephants = assign_elephant(mass_list)
+min_all = min(mass_list)
 permutation = {}
 check_list = []
+
 for i in range(n):
-    permutation[end_list0[i]] = start_list0[i] # Konstrukcja permutacji
-    check_list.append(False) # Rozkład na cykle proste
+    # Konstrukcja permutacji
+    permutation[end_list_0[i]] = start_list_0[i]
+    # Rozkład na cykle proste
+    check_list.append(False) 
 cycles = {}
 c = 0
 for i in range(n):
@@ -39,9 +33,7 @@ for i in range(n):
             x = permutation[x]
             cycles[c].append(x + 1)
 print(cycles)
-
 # Wyznaczenie parametrów cykli
-min_all = int
 suma_c = {}
 min_c = {}
 for i in range(1, c + 1):
@@ -52,16 +44,17 @@ for i in range(1, c + 1):
         suma_c[i] += elephants[e]
         elephants_c.append(elephants[e])
     min_c[i] = min(elephants_c)
-min_all = min(min_c)
+print(min_all)
 print(suma_c)
 print(min_c)
-
 # Obliczenie wyniku
 w = 0
 metoda1 = {}
 metoda2 = {}
 for i in range(1, c + 1):
     metoda1[i] = suma_c[i] + ((len(cycles[i]) - 2) * min_c[i])
+    print(f'metoda1[{i}]: {metoda1[i]}')
     metoda2[i] = suma_c[i] + min_c[i] + ((len(cycles[i]) + 1) * min_all)
+    print(f'metoda2[{i}]: {metoda2[i]}')
     w += min(metoda1[i], metoda2[i])
 print(w)
