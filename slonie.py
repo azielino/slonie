@@ -1,14 +1,13 @@
 import sys
-# ----------------------------- Czytanie danych z pliku
+
 data_file_name = sys.argv[1]
 with open(f'zadanie_B/{data_file_name}') as file:
-    str_data_file = file.readlines()
-str_data_list = [line.replace('\n', '') for line in str_data_file]
+    str_data_list = file.readlines()
 
 def str_list_to_int_list(list):
-    return [int(item) for item in list]
+    return [int(item.replace('\n', '')) for item in list]
 
-n = int(str_data_list[0])
+n = int(str_data_list[0].replace('\n', ''))
 mass_list = str_list_to_int_list(str_data_list[1].split(' '))
 start_list = str_list_to_int_list(str_data_list[2].split(' '))
 end_list = str_list_to_int_list(str_data_list[3].split(' '))
@@ -42,26 +41,25 @@ for i in range(n):
             x = permutation[x]
             cycles[c].append(x + 1)
 # ----------------------------- Wyznaczenie parametrów cykli
-suma_c = {}
+# ----------------------------- Obliczenie wyniku
+sum_c = {}
 min_c = {}
+method1 = {}
+method2 = {}
+result = 0
 for i in range(1, c + 1):
-    suma_c[i] = 0
+    sum_c[i] = 0
     min_c[i] = 0
     elephants_c = []
-    for e in cycles[i]:
-        suma_c[i] += elephants[e]
-        elephants_c.append(elephants[e])
-    min_c[i] = min(elephants_c)
-# ----------------------------- Obliczenie wyniku
-w = 0
-metoda1 = {}
-metoda2 = {}
-for i in range(1, c + 1):
     if len(cycles[i]) > 1:
-        metoda1[i] = suma_c[i] + ((len(cycles[i]) - 2) * min_c[i])
+        for e in cycles[i]:
+            sum_c[i] += elephants[e]
+            elephants_c.append(elephants[e])
+        min_c[i] = min(elephants_c)
+        method1[i] = sum_c[i] + ((len(cycles[i]) - 2) * min_c[i])
         if min_c[i] != min_all:
-            metoda2[i] = suma_c[i] + min_c[i] + ((len(cycles[i]) + 1) * min_all)
-            w += min(metoda1[i], metoda2[i])
+            method2[i] = sum_c[i] + min_c[i] + ((len(cycles[i]) + 1) * min_all)
+            result += min(method1[i], method2[i])
         else:
-            w += metoda1[i]
-print(w)
+            result += method1[i]
+print(result)
