@@ -24,13 +24,18 @@ elephants = assign_elephant_mass(mass_list)
 min_all = min(mass_list)
 permutation = {}
 check_list = []
+cycles = {}
+c = 0
+sum_c = {}
+min_c = {}
+method1 = {}
+method2 = {}
+result = 0
 # ----------------------------- Konstrukcja permutacji
 for i in range(n):
     permutation[end_list_0[i]] = start_list_0[i]
     check_list.append(False)
 # ----------------------------- Rozkład na cykle proste
-cycles = {}
-c = 0
 for i in range(n):
     if not check_list[i]:
         c += 1
@@ -42,11 +47,6 @@ for i in range(n):
             cycles[c].append(x + 1)
 # ----------------------------- Wyznaczenie parametrów cykli
 # ----------------------------- Obliczenie wyniku
-sum_c = {}
-min_c = {}
-method1 = {}
-method2 = {}
-result = 0
 for i in range(1, c + 1):
     sum_c[i] = 0
     min_c[i] = 0
