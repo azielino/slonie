@@ -1,7 +1,7 @@
-import sys
+from sys import argv
 
-data_file_name = sys.argv[1]
-with open(f'zadanie_B/{data_file_name}') as file:
+data_filename = argv[1]
+with open(f'zadanie_B/{data_filename}') as file:
     str_data_list = file.readlines()
 
 def str_list_to_int_list(list):
