@@ -1,6 +1,9 @@
 from sys import argv
 
-data_filename = argv[1]
+if len(argv) > 1:
+    data_filename = argv[1]
+else:
+    data_filename = input()
 with open(f'zadanie_B/{data_filename}') as file:
     str_data_list = file.readlines()
 
